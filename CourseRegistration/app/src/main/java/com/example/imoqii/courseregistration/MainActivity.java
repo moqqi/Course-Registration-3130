@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mDetailTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
+    private LinearLayout mEmailPasswordInputLayout;
+    private LinearLayout mEmailPasswordButtonLayout;
+    private LinearLayout mSignedInLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDetailTextView = findViewById(R.id.detail);
         mEmailField = findViewById(R.id.field_email);
         mPasswordField = findViewById(R.id.field_password);
+        mEmailPasswordInputLayout = findViewById(R.id.email_password_fields);
+        mEmailPasswordButtonLayout = findViewById(R.id.email_password_buttons);
+        mSignedInLayout = findViewById(R.id.signed_in_buttons);
 
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
@@ -56,6 +64,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void updateUI(FirebaseUser currentUser){
         //Do Something
+        if(currentUser != null){
+            mStatusTextView.setText("Username: "+currentUser.getEmail());
+            mEmailPasswordButtonLayout.setVisibility(View.GONE);
+            mEmailPasswordInputLayout.setVisibility(View.GONE);
+            mSignedInLayout.setVisibility(View.VISIBLE);
+        } else {
+            mStatusTextView.setText("Please Sign In");
+            mSignedInLayout.setVisibility(View.GONE);
+            mEmailPasswordButtonLayout.setVisibility(View.VISIBLE);
+            mEmailPasswordInputLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void createAccount(String email, String password){
