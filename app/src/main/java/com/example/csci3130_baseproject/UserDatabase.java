@@ -1,10 +1,14 @@
 package com.example.csci3130_baseproject;
 import java.util.ArrayList;
 public class UserDatabase {
-    private ArrayList<User> userList ;
+    private ArrayList<User> userList = new ArrayList<User>();
 
     public ArrayList<User> getUsers() {
         return userList;
+    }
+
+    public void add(User user){
+        userList.add(user);
     }
 
     public boolean login(String email, String password) {

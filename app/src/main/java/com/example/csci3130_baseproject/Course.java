@@ -99,7 +99,5 @@ public class Course {
     }
     public String viewCourseInfo() {
         return this.getDepartment() + "\tSemester: " + this.getSemester() + "\n" + this.getId() + ": " + this.getName() + "\n"
-                + "Capacity: " + this.getCapacity() + "\tWaitlist size: " + this.waitlistSize() +
-                "Drop date deadline: " + this.getDrop_deadline();
+                + "Capacity: " + this.getCapacity();}
     }
-}
