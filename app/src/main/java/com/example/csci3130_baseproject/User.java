@@ -9,9 +9,20 @@ public class User {
 
     public User(){
     }
+    public void setPastCourses(ArrayList<Course> course){
+        this.pastCourses = new ArrayList<Course>();
+    }
 
+    public ArrayList<Course> getPastCourses(){
+        return pastCourses;
+    }
     public int coursesNum(){
-        return courses.size();
+        if (getCourses().isEmpty()){
+            return 0;
+        }
+        else{
+            return getCourses().size();
+        }
     }
 
     public ArrayList<Course> getCourses(){

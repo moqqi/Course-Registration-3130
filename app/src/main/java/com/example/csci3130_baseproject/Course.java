@@ -6,6 +6,8 @@ public class Course {
     private String name, id, department, semester;
     private Date drop_deadline, current;
     private ArrayList<User> waitlist;
+    private Date class_start;
+    private Date class_end;
     private int capacity;
     private  ArrayList<User> students ;
 
@@ -19,26 +21,13 @@ public class Course {
 //        setCapacity(capacity);
 //
 //    }
-    public boolean isFull(Course c){
-        if (c.getCapacity() > capacity){
-            return true;
-        }
-        else
-            return false;
-    }
-    //    public void addStudent(Course course){
-//    	if (students.size()>= capacity){
-//    		if (waitlist.size() >= 10){
-//    			System.out.print("Course is full");
-//    		}
-//    		else if (waitlist.size() < 10){ //fixed sized wait list
-//
-//    		}
-//    	}
-//    	else if ()
-//    }
     public int studentsNum(){
-        return students.size();
+        if (students.isEmpty()){
+            return 0;
+        }
+        else{
+            return students.size();
+        }
     }
     public ArrayList<User> getStudents() {
         return students;
@@ -70,8 +59,9 @@ public class Course {
     public int waitlistSize() {
         return waitlist.size();
     }
+
     public void setWaitlist(ArrayList<User> waitlist) {
-        this.waitlist = waitlist;
+        this.waitlist = new ArrayList<User>();
     }
     public int getCapacity() {
         return capacity;
@@ -99,5 +89,21 @@ public class Course {
     }
     public String viewCourseInfo() {
         return this.getDepartment() + "\tSemester: " + this.getSemester() + "\n" + this.getId() + ": " + this.getName() + "\n"
-                + "Capacity: " + this.getCapacity();}
+                + "Capacity: " + this.getCapacity();
     }
+    public Date getClass_start() {
+        return class_start;
+    }
+
+    public void setClass_start(Date class_start) {
+        this.class_start = class_start;
+    }
+
+    public Date getClass_end() {
+        return class_end;
+    }
+
+    public void setClass_end(Date class_end) {
+        this.class_end = class_end;
+    }
+}
