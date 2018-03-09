@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CSCI3130BaseProject.iml" filepath="$PROJECT_DIR$/CSCI3130BaseProject.iml" />
+      <module fileurl="file://C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Working Copy\Course-Registration-3130-iteration1final\CSCI3130BaseProject.iml" filepath="C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Working Copy\Course-Registration-3130-iteration1final\CSCI3130BaseProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Course-Registration-3130-iteration1final.iml" filepath="$PROJECT_DIR$/Course-Registration-3130-iteration1final.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Working Copy\Course-Registration-3130-iteration1final\app\app.iml" filepath="C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Working Copy\Course-Registration-3130-iteration1final\app\app.iml" />
     </modules>
   </component>
 </project>

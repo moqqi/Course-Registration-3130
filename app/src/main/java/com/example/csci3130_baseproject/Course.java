@@ -88,7 +88,7 @@ public class Course {
         return semester;
     }
     public String viewCourseInfo() {
-        return this.getDepartment() + "\tSemester: " + this.getSemester() + "\n" + this.getId() + ": " + this.getName() + "\n"
+        return this.getDepartment() + "\n" + this.getName() + "\n"
                 + "Capacity: " + this.getCapacity();
     }
     public Date getClass_start() {
