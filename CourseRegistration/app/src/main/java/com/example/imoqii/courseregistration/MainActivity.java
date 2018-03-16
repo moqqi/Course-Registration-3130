@@ -50,6 +50,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mEmailPasswordButtonLayout = findViewById(R.id.email_password_buttons);
         mSignedInLayout = findViewById(R.id.signed_in_buttons);
 
+
+        Course testCourse = new Course();
+        testCourse.setDepartment("Computer Science");
+        testCourse.setId("CS212");
+        testCourse.setName("Databases");
+        testCourse.setCapacity(100);
+
+        ((TextView)findViewById((R.id.courseName))).setText(testCourse.getId());
+        ((TextView)findViewById((R.id.courseInfo))).setText(testCourse.viewCourseInfo());
+
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
         findViewById(R.id.email_create_account_button).setOnClickListener(this);

@@ -74,4 +74,12 @@
 
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
+    <string name="myClasses">My Classes</string>
+    <string name="mySchedule">My Schedule</string>
+    <string name="logout">Logout</string>
+    <string name="textView" />
+    <string name="timetable_activity">Timetable Activity</string>
+    <string name="timetable">Timetable</string>
+    <string name="textview">TextView</string>
+    <string name="my_daily_schedule">MySchedule Activity</string>
 </resources>
