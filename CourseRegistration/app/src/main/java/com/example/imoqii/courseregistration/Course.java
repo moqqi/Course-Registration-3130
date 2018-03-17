@@ -1,9 +1,15 @@
 package com.example.imoqii.courseregistration;
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-public class Course {
-    private String name, id, department, semester;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Course implements Serializable{
+    private String key, name, id, department, semester;
     private Date drop_deadline, current;
     private ArrayList<User> waitlist;
     private Date class_start;
@@ -11,16 +17,29 @@ public class Course {
     private int capacity;
     private  ArrayList<User> students ;
 
+    private MyApplicationData appData;
+
     public Course (){
 
     }
-    //    public Course(String n, String ID, String dept, int t, int capacity){
-//        setName(n);
-//        setId(ID);
-//        setDepartment(dept);
-//        setCapacity(capacity);
-//
-//    }
+
+    public Course(String key, String name, String id, String department, String semester,
+                  Date drop_deadline, Date current, ArrayList<User> waitlist, Date class_start,
+                  Date class_end, int capacity, ArrayList<User> students) {
+        this.key = key;
+        this.name = name;
+        this.id = id;
+        this.department = department;
+        this.semester = semester;
+        this.drop_deadline = drop_deadline;
+        this.current = current;
+        this.waitlist = waitlist;
+        this.class_start = class_start;
+        this.class_end = class_end;
+        this.capacity = capacity;
+        this.students = students;
+    }
+
     public int studentsNum(){
         if (students.isEmpty()){
             return 0;
@@ -105,5 +124,28 @@ public class Course {
 
     public void setClass_end(Date class_end) {
         this.class_end = class_end;
+    }
+
+    public void updateDatabase(Course course){
+        if(course != null){
+            appData.courseDatabase.child(course.key).setValue(course);
+        }
+    }
+
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("id", id);
+        result.put("department", department);
+        result.put("semester", semester);
+        result.put("drop_deadline", drop_deadline.toString());
+        result.put("current", current.toString());
+        result.put("waitlist", waitlist.size());
+        result.put("class_start", class_start.toString());
+        result.put("class_end", class_end).toString();
+        result.put("capacity", capacity);
+        result.put("students", students.size());
+        return result;
     }
 }

@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignedInLayout = findViewById(R.id.signed_in_buttons);
 
 
+        // >>>>> Start Ty's changes
         Course testCourse = new Course();
         testCourse.setDepartment("Computer Science");
         testCourse.setId("CS212");
@@ -59,12 +60,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ((TextView)findViewById((R.id.courseName))).setText(testCourse.getId());
         ((TextView)findViewById((R.id.courseInfo))).setText(testCourse.viewCourseInfo());
+        // >>>>> End Ty's changes
 
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
         findViewById(R.id.email_create_account_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.verify_email_button).setOnClickListener(this);
+
+        //Get the app wide shared variables
+        MyApplicationData appData = (MyApplicationData)getApplication();
+
+        //Set-up Firebase
+        appData.firebaseDBInstance = FirebaseDatabase.getInstance();
+        appData.courseDatabase = appData.firebaseDBInstance.getReference("Course");
+        appData.userDatabase = appData.firebaseDBInstance.getReference("User");
 
         //Start Auth
         mAuth = FirebaseAuth.getInstance();
@@ -130,9 +140,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+
+                            //Get the app wide shared variables
+                            MyApplicationData appData = (MyApplicationData)getApplication();
+
                             // Write a message to the database
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("message");
+                            DatabaseReference myRef = appData.firebaseDBInstance.getReference("message");
 
                             // Read from the database
                             myRef.addValueEventListener(new ValueEventListener() {

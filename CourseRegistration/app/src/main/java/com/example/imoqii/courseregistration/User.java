@@ -1,11 +1,19 @@
 package com.example.imoqii.courseregistration;
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
 import java.util.ArrayList;
-public class User {
+import java.util.HashMap;
+import java.util.Map;
+
+public class User implements Serializable{
     private String id;
     private String email;
     private String password;
     private ArrayList<Course> courses = new ArrayList<>();
     private ArrayList<Course> pastCourses = new ArrayList<>();
+
+    private MyApplicationData appData;
 
     public User(){
     }
@@ -63,5 +71,24 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public void updateDatabase(User user){
+        if(user != null){
+            appData.userDatabase.child(user.id).setValue(user);
+        }
+    }
+
+    /**
+     * Mapping required for adding attributes of User for use on Firebase.
+     * @return Mapping of Name and Value.
+     */
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("email", email);
+        result.put("courses", courses);
+        result.put("pastCourses", pastCourses);
+        return result;
     }
 }
