@@ -10,7 +10,7 @@ public class UserScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.user_activity);
 
         final Button timetableBtn = findViewById(R.id.button3);
         timetableBtn.setOnClickListener(new View.OnClickListener(){

@@ -1,10 +1,15 @@
 package com.example.csci3130_baseproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void enterCourseInfoUI(View v) {
@@ -48,6 +54,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayDailySchedule(View v) {
         setContentView(R.layout.daily_schedule_activity);
+
+        setContentView(R.layout.daily_schedule_activity);
+        Course temp = new Course();
+        User user = new User ();
+        temp.setName("MATH1000");
+
+        TextView textView = (TextView)findViewById(R.id.textView1);
+        textView.setText(temp.getName());
+
+        TextView textView2 = (TextView)findViewById(R.id.textView2);
+        stDate(textView2);
+        TextView textView3 = (TextView)findViewById(R.id.textView3);
+        endDate(textView3);
+
     }
 
     public void enterMyCourses(View v) {
@@ -60,5 +80,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void backToHome(View v) {
         setContentView(R.layout.activity_main);
+    }
+    public void stDate (TextView view){
+        Calendar.getInstance().set(2018,3,12,11,20);
+        SimpleDateFormat formatter = new SimpleDateFormat ("EEEEE yyyy HH:mm");
+        //String st_strg = "Monday 2018 10:30";
+        String date = formatter.format(Calendar.getInstance().getTime());
+        view.setText(date);
+    }
+
+    public void endDate (TextView view){
+        Calendar.getInstance().set(2018,3,12,12,30);
+        SimpleDateFormat formatter = new SimpleDateFormat ("EEEEE yyyy HH:mm");
+        //String st_strg = "Monday 2018 10:30";
+        String date = formatter.format(Calendar.getInstance().getTime());
+        view.setText(date);
     }
 }
