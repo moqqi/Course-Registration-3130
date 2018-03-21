@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">CSCI3130 - Base Project</string>
+    <string name="myClasses">My Classes</string>
+    <string name="mySchedule">My Schedule</string>
+    <string name="logout">Logout</string>
+    <string name="textView" />
+    <string name="timetable_activity">Timetable Activity</string>
+    <string name="timetable">Timetable</string>
+    <string name="textview">TextView</string>
+    <string name="my_daily_schedule">MySchedule Activity</string>
+</resources>
