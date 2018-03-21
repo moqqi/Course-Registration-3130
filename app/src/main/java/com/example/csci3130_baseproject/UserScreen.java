@@ -6,7 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Class for handling the UI of the User choices screen.
+ */
 public class UserScreen extends AppCompatActivity {
+
+    /**
+     * On create method for creating UI components required for User screen.
+     * @param savedInstanceState previously saved instance of application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

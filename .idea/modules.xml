@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Course-Registration-3130-iteration2merging\Course-Registration-3130.iml" filepath="C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Course-Registration-3130-iteration2merging\Course-Registration-3130.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Course-Registration-3130-iteration2merging.iml" filepath="$PROJECT_DIR$/Course-Registration-3130-iteration2merging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Course-Registration-3130.iml" filepath="$PROJECT_DIR$/Course-Registration-3130.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Course-Registration-3130-iteration2merging\app\app.iml" filepath="C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Course-Registration-3130-iteration2merging\app\app.iml" />
     </modules>
   </component>
 </project>
