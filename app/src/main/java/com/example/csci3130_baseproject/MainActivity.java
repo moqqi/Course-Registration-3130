@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -21,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Get the app wide shared variables
+        MyApplicationData appData = (MyApplicationData)getApplication();
+
+        //Set-up Firebase
+        appData.firebaseDBInstance = FirebaseDatabase.getInstance();
+        appData.firebaseReference = appData.firebaseDBInstance.getReference("user");
 
     }
 

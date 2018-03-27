@@ -1,10 +1,15 @@
 package com.example.csci3130_baseproject;
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Object class for users/students accessing the application.
  */
-public class User {
+public class User implements Serializable {
     private String id;
     private String email;
     private String password;
@@ -12,7 +17,7 @@ public class User {
     private ArrayList<Course> pastCourses;
 
     /**
-     * Default constructor for user.
+     * Default constructor for user, required for firebase.
      */
     public User(){
     }
@@ -103,5 +108,19 @@ public class User {
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Mapping required for adding attributes of User for use on Firebase.
+     * @return Mapping of Name and Value.
+     */
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("email", email);
+        result.put("password", password);
+        result.put("courses", courses);
+        result.put("pastCourses", pastCourses);
+        return result;
     }
 }

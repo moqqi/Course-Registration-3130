@@ -1,11 +1,43 @@
 package com.example.csci3130_baseproject;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class acting as User database for functionality.
  */
-public class UserDatabase {
+public class UserDatabase{
     private ArrayList<User> userList = new ArrayList<User>();
+    private MyApplicationData appData;
+
+    public void connectToFirebase(MyApplicationData appData){
+        this.appData = appData;
+
+        //Set-up Firebase
+        appData.firebaseDBInstance = FirebaseDatabase.getInstance();
+        appData.firebaseReference = appData.firebaseDBInstance.getReference("user");
+
+        appData.firebaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                Map<String, User> td = (HashMap<String,User>) dataSnapshot.getValue();
+
+                userList = new ArrayList<User>(td.values());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+
+        });
+    }
 
     public ArrayList<User> getUsers() {
         return userList;
@@ -16,7 +48,16 @@ public class UserDatabase {
      * @param user for adding into the database.
      */
     public void add(User user){
+        String uID = appData.firebaseReference.push().getKey();//each entry needs a unique Id
+        //courseList.add(course);
+        appData.firebaseReference.child(uID).setValue(user);
         userList.add(user);
+    }
+
+    public void remove(String uID){
+        if(uID != null){
+            appData.firebaseReference.child(uID).removeValue();
+        }
     }
 
     /**

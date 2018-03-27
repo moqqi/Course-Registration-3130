@@ -1,7 +1,11 @@
 package com.example.csci3130_baseproject;
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class used for Course Objects used throughout application.
@@ -226,5 +230,25 @@ public class Course {
      */
     public void setClass_end(Date class_end) {
         this.class_end = class_end;
+    }
+
+    /**
+     * Mapping required for adding attributes of User for use on Firebase.
+     * @return Mapping of Name and Value.
+     */
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("department", department);
+        result.put("semester", semester);
+        result.put("drop_deadline", drop_deadline.toString());
+        result.put("current", current.toString());
+        result.put("waitlist", waitlist);
+        result.put("class_start", class_start.toString());
+        result.put("class_end", class_end.toString());
+        result.put("capacity", capacity);
+        result.put("students", students);
+        return result;
     }
 }
