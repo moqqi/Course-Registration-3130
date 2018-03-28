@@ -26,7 +26,6 @@ public class CourseDatabase {
         appData.firebaseReference.addValueEventListener(new ValueEventListener() {
                                       @Override
                                       public void onDataChange(DataSnapshot dataSnapshot) {
-                                          Course course = dataSnapshot.getValue(Course.class);
                                           Map<String, Course> td = (HashMap<String,Course>) dataSnapshot.getValue();
 
                                           courseList = new ArrayList<Course>(td.values());
