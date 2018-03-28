@@ -7,6 +7,9 @@ import android.os.Bundle;
  * Created by GhadiKashgari on 2018-03-09.
  */
 
+/**
+ * UI class for the timetable functionality of application.
+ */
 public class timetableActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

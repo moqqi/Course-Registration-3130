@@ -8,7 +8,16 @@ import java.text.ParseException;
  * Created by GhadiKashgari on 2018-02-24.
  */
 
+/**
+ * Class used for mimicking the database for Registration of course.
+ */
 public class RegistrationDatabase {
+
+    /**
+     * Main class for testing functionality of database.
+     * @param args
+     * @throws ParseException
+     */
     public static void main(String [] args) throws ParseException {
         ArrayList<Course> courses = new ArrayList<Course>();
         ArrayList<Course> courses1 = new ArrayList<Course>();
@@ -44,13 +53,16 @@ public class RegistrationDatabase {
         String current_strg = "Sun Oct 06 11:28:16 2018";
         Date deadline = format2.parse(deadline_strg);
         Date current = format2.parse(current_strg);
-        c1.setDrop_deadline(deadline);
-        c1.setCurrent(current);
         drop(c1,courses);
 
     }
 
-    //Assuming that the maximum number of courses a student can register for is 5.
+    /**
+     * Add a student to the requested course.
+     * @param user to be added to the course.
+     * @param course that the use will be added to.
+     * @return boolean value of if the user was successfully added to course.
+     */
     public static boolean addStudent(User user, Course course){
         course.getStudents().add(user);
         user.getCourses().add(course);
@@ -62,9 +74,12 @@ public class RegistrationDatabase {
         }
     }
 
-    //Returns 1 if student is successfully registered in the course
-    //Returns 2 if student is added to the wait list
-    //returns 3 if student is not registered (either due to max hours exceeded error, or wait list is full)
+    /**
+     * Method for registering a user to a course.
+     * @param user attempting to register for course.
+     * @param course the user is attempting to register.
+     * @return int value representing if the user was able to register for course.
+     */
     public static int registerCourse(User user, Course course){
         if (!maxCourses(user) && courseCapacity(course)) {
             addStudent(user,course);
@@ -84,7 +99,11 @@ public class RegistrationDatabase {
         }
     }
 
-    //returns true if maximum hours exceeded (5 or more hours)
+    /**
+     * Check if the user is at max amount of courses.
+     * @param user attempting to register.
+     * @return boolean check.
+     */
     public static boolean maxCourses(User user){
         if (user.coursesNum() >= 5){
             return true;
@@ -94,7 +113,11 @@ public class RegistrationDatabase {
         }
     }
 
-    //Returns true if capacity is not full
+    /**
+     * Check if course is at max capacity.
+     * @param course that user is requesting access to.
+     * @return boolean of capacity check.
+     */
     public static boolean courseCapacity(Course course){
         if(course.getCapacity() > course.studentsNum()){
             return true;
@@ -103,7 +126,12 @@ public class RegistrationDatabase {
             return false;
         }
     }
-    //returns true if wait list is not full
+
+    /**
+     * Check if waitlist is at maximum.
+     * @param course to be checked for waitlist size.
+     * @return boolean of waitlist maximum check.
+     */
     public static boolean waitlist(Course course) {
         if (course.getWaitlist().size() < 10) {
             return true;
@@ -111,16 +139,13 @@ public class RegistrationDatabase {
             return false;
         }
     }
-    public static boolean drop(Course course, ArrayList<Course> Courses){
-        if(course.getDrop_deadline().before(course.getCurrent())){
-            System.out.println(course.getName()+" was dropped successfully.");
-            Courses.remove(course);
-            return true;
-        }
-        else {
-            System.out.println("deadline is passed.");
-            return false;
 
-        }
+    /**
+     * Method for user to drop a course.
+     * @param course that user is attempting to drop
+     * @param courses list of courses user currently has.
+     */
+    public static void drop(Course course, ArrayList<Course> courses){
+            courses.remove(course);
     }
 }

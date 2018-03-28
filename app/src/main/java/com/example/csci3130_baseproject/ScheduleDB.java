@@ -4,7 +4,15 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * Schedule Class mimicking database.
+ */
 public class ScheduleDB {
+    /**
+     * Main class for testing functionality of database.
+     * @param args
+     * @throws ParseException
+     */
     public static void main (String [] args) throws ParseException{
 
         User student = new User ();
@@ -54,13 +62,15 @@ public class ScheduleDB {
         current_courses.get(0).setName("MATH");
         current_courses.get(1).setName("PSYO");
         current_courses.get(2).setName("ECON");
-        math.setDrop_deadline(deadline);
-        math.setCurrent(current);
 
         student.setCourses(current_courses);
         viewDailySchedule(student);
     }
 
+    /**
+     * Display the daily schedule of current user.
+     * @param user attempting to view their schedule.
+     */
     public static void viewDailySchedule (User user){
 
         ArrayList<Course> courses = user.getCourses();
