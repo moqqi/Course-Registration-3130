@@ -15,53 +15,40 @@
 
 
             <Button
-                android:id="@+id/button17"
-                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/sci1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="148dp"
-                android:layout_marginTop="81dp"
-                android:backgroundTint="@android:color/holo_blue_dark"
-                android:onClick="enterCourseInfoUI"
-                android:text="CS212"
+                android:layout_marginTop="53dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/button6"
-                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/sci3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="148dp"
-                android:layout_marginTop="47dp"
-                android:backgroundTint="@android:color/holo_blue_dark"
-                android:text="Button"
+                android:layout_marginTop="44dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button17" />
+                app:layout_constraintTop_toBottomOf="@+id/sci2" />
 
             <Button
-                android:id="@+id/button7"
-                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/sci2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="148dp"
-                android:layout_marginTop="47dp"
-                android:backgroundTint="@android:color/holo_blue_dark"
-                android:text="Button"
+                android:layout_marginTop="55dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button6" />
+                app:layout_constraintTop_toBottomOf="@+id/sci1" />
 
             <Button
-                android:id="@+id/button8"
-                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/sci4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="148dp"
-                android:layout_marginTop="47dp"
-                android:backgroundTint="@android:color/holo_blue_dark"
-                android:text="Button"
+                android:layout_marginTop="72dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button7" />
+                app:layout_constraintTop_toBottomOf="@+id/sci3" />
         </android.support.constraint.ConstraintLayout>
     </ViewFlipper>
 

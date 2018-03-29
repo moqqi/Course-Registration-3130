@@ -14,9 +14,10 @@ import java.util.Map;
 public class Course {
     private String name, id, department;
     private ArrayList<User> waitlist;
-    private Date class_start;
-    private Date class_end;
+    private String class_start;
+    private String class_end;
     private int capacity;
+    private int current;
     private  ArrayList<User> students ;
 
     /**
@@ -26,8 +27,8 @@ public class Course {
 
     }
 
-    public Course(String name, String id, String department, ArrayList<User> waitlist, Date class_start, Date class_end,
-                  int capacity, ArrayList<User> students){
+    public Course(String name, String id, String department, ArrayList<User> waitlist, String class_start, String class_end,
+                  int capacity, int current, ArrayList<User> students){
         this.name = name;
         this.id = id;
         this.department = department;
@@ -36,6 +37,7 @@ public class Course {
         this.class_end = class_end;
         this.capacity = capacity;
         this.students = students;
+        this.current = current;
 
     }
 
@@ -157,19 +159,43 @@ public class Course {
     }
 
     /**
+     * Get the current open slots of the course.
+     * @return integer value of the size of the course.
+     */
+    public int getCurrent() {
+        return current;
+    }
+
+    /**
+     * Set the current open slots of the course
+     * @param current Updated capacity integer value.
+     */
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
+    /**
      * Returns base course info for display.
      * @return String of department, name, and capacity of current course.
      */
     public String viewCourseInfo() {
-        return this.getDepartment() + "\n" + this.getName() + "\n"
+        return this.getDepartment() + this.getId() + "\n" + this.getName() + "\n"
                 + "Capacity: " + this.getCapacity();
+    }
+
+    /**
+     * Returns the course ID and department, used for buttons.
+     * @return String of department and ID.
+     */
+    public String courseCode() {
+        return this.getDepartment() + this.getId();
     }
 
     /**
      * Get class start Date from current course.
      * @return Date of class_start.
      */
-    public Date getClass_start() {
+    public String getClass_start() {
         return class_start;
     }
 
@@ -177,7 +203,7 @@ public class Course {
      * Set course start date for current course.
      * @param class_start Date value of start of the course.
      */
-    public void setClass_start(Date class_start) {
+    public void setClass_start(String class_start) {
         this.class_start = class_start;
     }
 
@@ -185,7 +211,7 @@ public class Course {
      * Get Course end Date for current course.
      * @return Date value of class end.
      */
-    public Date getClass_end() {
+    public String getClass_end() {
         return class_end;
     }
 
@@ -193,7 +219,7 @@ public class Course {
      * Set the end Date for the current course.
      * @param class_end Date value of current end class.
      */
-    public void setClass_end(Date class_end) {
+    public void setClass_end(String class_end) {
         this.class_end = class_end;
     }
 

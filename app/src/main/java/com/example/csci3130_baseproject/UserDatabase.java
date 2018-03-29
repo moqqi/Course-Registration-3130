@@ -45,9 +45,9 @@ public class UserDatabase{
      * @param user for adding into the database.
      */
     public void add(User user){
-        String uID = appData.push().getKey();//each entry needs a unique Id
+        /*String uID = appData.push().getKey();//each entry needs a unique Id
         //courseList.add(course);
-        appData.child(uID).setValue(user);
+        appData.child(uID).setValue(user);*/
         userList.add(user);
     }
 

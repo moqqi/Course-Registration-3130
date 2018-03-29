@@ -14,7 +14,6 @@ public class User implements Serializable {
     private String email;
     private String password;
     private ArrayList<Course> courses;
-    private ArrayList<Course> pastCourses;
 
     /**
      * Default constructor for user, required for firebase.
@@ -22,36 +21,11 @@ public class User implements Serializable {
     public User(){
     }
 
-    public User(String id, String email, String password, ArrayList<Course> courses, ArrayList<Course> pastCourses) {
+    public User(String id, String email, String password, ArrayList<Course> courses) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.courses = courses;
-        this.pastCourses = pastCourses;
-    }
-
-    /**
-     * Set the past courses of the user.
-     * @param course Arraylist containing courses for the user.
-     */
-    public void setPastCourses(ArrayList<Course> course){
-        this.pastCourses = new ArrayList<Course>();
-    }
-
-    /**
-     * Get past courses from the user.
-     * @return Arraylist of courses from the student.
-     */
-    public ArrayList<Course> getPastCourses(){
-        return pastCourses;
-    }
-    public int coursesNum(){
-        if (getCourses().isEmpty()){
-            return 0;
-        }
-        else{
-            return getCourses().size();
-        }
     }
 
     /**
@@ -128,7 +102,6 @@ public class User implements Serializable {
         result.put("email", email);
         result.put("password", password);
         result.put("courses", courses);
-        result.put("pastCourses", pastCourses);
         return result;
     }
 }

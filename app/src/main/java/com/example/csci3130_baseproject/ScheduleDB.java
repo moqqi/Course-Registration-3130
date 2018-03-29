@@ -13,7 +13,7 @@ public class ScheduleDB {
      * @param args
      * @throws ParseException
      */
-    public static void main (String [] args) throws ParseException{
+   /** public static void main (String [] args) throws ParseException{
 
         User student = new User ();
         ArrayList <Course> current_courses = new ArrayList<Course>();
@@ -71,6 +71,7 @@ public class ScheduleDB {
      * Display the daily schedule of current user.
      * @param user attempting to view their schedule.
      */
+   /**
     public static void viewDailySchedule (User user){
 
         ArrayList<Course> courses = user.getCourses();
@@ -91,5 +92,5 @@ public class ScheduleDB {
         }
 
         System.out.print(cTimes.size());
-    }
+    }**/
 }

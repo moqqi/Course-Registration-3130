@@ -41,9 +41,24 @@ public class CourseDatabase {
      * @param course Course object to be added to database.
      */
     public void addCourse(Course course) {
-        String cID = appData.push().getKey();//each entry needs a unique Id
-        //courseList.add(course);
-        appData.child(cID).setValue(course);
+        /*String cID = appData.push().getKey();//each entry needs a unique ID
+        appData.child(cID).setValue(course);*/
+        courseList.add(course);
+    }
+
+    /**
+     * Get a class from the Database.
+     * @param course Course object to be fetched from the database.
+     */
+    public Course getCourse(int index) {
+        return courseList.get(index);
+    }
+
+    /**
+     * Get the size of the database
+     */
+    public int size() {
+        return courseList.size();
     }
 
     /**
@@ -79,7 +94,7 @@ public class CourseDatabase {
         if(courseList.size()<1) return null;
 
         for(int i=0; i<courseList.size(); i++) {
-            if (courseList.get(i).getId().equals(cID))
+            if (courseList.get(i).courseCode().equals(cID))
                 return courseList.get(i);
         }
         return null;

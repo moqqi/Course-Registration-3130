@@ -15,7 +15,7 @@
 
 
             <Button
-                android:id="@+id/button17"
+                android:id="@+id/bande1"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -23,45 +23,44 @@
                 android:layout_marginTop="81dp"
                 android:backgroundTint="@android:color/holo_blue_dark"
                 android:onClick="enterCourseInfoUI"
-                android:text="CS212"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/bande2"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="148dp"
                 android:layout_marginTop="47dp"
                 android:backgroundTint="@android:color/holo_blue_dark"
-                android:text="Button"
+                android:onClick="enterCourseInfoUI"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button17" />
+                app:layout_constraintTop_toBottomOf="@+id/bande1" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/bande3"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="148dp"
                 android:layout_marginTop="47dp"
                 android:backgroundTint="@android:color/holo_blue_dark"
-                android:text="Button"
+                android:onClick="enterCourseInfoUI"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button6" />
+                app:layout_constraintTop_toBottomOf="@+id/bande2" />
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/bande4"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="148dp"
                 android:layout_marginTop="47dp"
                 android:backgroundTint="@android:color/holo_blue_dark"
-                android:text="Button"
+                android:onClick="enterCourseInfoUI"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button7" />
+                app:layout_constraintTop_toBottomOf="@+id/bande3" />
         </android.support.constraint.ConstraintLayout>
     </ViewFlipper>
 

@@ -105,7 +105,7 @@ public class RegistrationDatabase {
      * @return boolean check.
      */
     public static boolean maxCourses(User user){
-        if (user.coursesNum() >= 5){
+        if (user.getCourses().size() >= 5){
             return true;
         }
         else {
