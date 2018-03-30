@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,11 +65,14 @@ public class MainActivity extends AppCompatActivity {
 
         /**users**/
         //empty course list
-        ArrayList<Course> emptyCourseList = new ArrayList<Course>();
+        ArrayList<Course> user1Courses = new ArrayList<Course>();
+        ArrayList<Course> user2Courses = new ArrayList<Course>();
+        ArrayList<Course> user3Courses = new ArrayList<Course>();
+        ArrayList<Course> user4Courses = new ArrayList<Course>();
 
         //starting users
         //this user has a full course load, no waitlist
-        User user1 = new User("120", "janesmith@dal.ca", "dalhousie", emptyCourseList);
+        User user1 = new User("120", "janesmith@dal.ca", "dalhousie", user1Courses);
         user1.getCourses().add(sci2);
         sci2.getStudents().add(user1);
         user1.getCourses().add(sci3);
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         other2.getStudents().add(user1);
 
         //only 4/5 courses, no waitlist
-        User user2 = new User("333", "johndoe@dal.ca", "baseball", emptyCourseList);
+        User user2 = new User("333", "johndoe@dal.ca", "baseball", user2Courses);
         user2.getCourses().add(eng3);
         eng3.getStudents().add(user2);
         user2.getCourses().add(eng4);
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         bande4.getStudents().add(user2);
 
         //2 waitlisted course, 1 regular course
-        User user3 = new User("653", "jasonmacdonald@dal.ca", "thebeatles", emptyCourseList);
+        User user3 = new User("653", "jasonmacdonald@dal.ca", "thebeatles", user3Courses);
         user3.getCourses().add(sci1);
         sci1.getWaitlist().add(user3);
         user3.getCourses().add(bande2);
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         other4.getStudents().add(user3);
 
         //no courses added yet
-        User user4 = new User("738", "lisahunt@dal.ca", "soccer", emptyCourseList);
+        User user4 = new User("738", "lisahunt@dal.ca", "soccer", user4Courses);
 
         //adding all courses and all users to the database
         courses.addCourse(sci1);
@@ -155,27 +160,48 @@ public class MainActivity extends AppCompatActivity {
      * @param v Current View of application.
      */
     public void enterCourseInfoUI(View v) {
-        //Button button = (Button)v;
-        String courseCode = ((Button)v).getText().toString(); //grabbing the full course code
-        //grabbing each part individually
-        String dept = courseCode.substring(0, 3);
-        String id = courseCode.substring(3);
-
-        ((TextView)findViewById((R.id.textView4))).setText(dept);
-        ((TextView)findViewById((R.id.textView6))).setText(id);
+        String courseCode = ((Button)v).getText().toString();
 
         //searching for the course
         Course course = new Course();
 
         for (int i = 0; i < courses.size(); i++) {
-            if (courses.getCourse(i).getDepartment().equals(dept) &&
-                    courses.getCourse(i).getId().equals(id))
+            if (courses.getCourse(i).courseCode().equals(courseCode))
                 course = courses.getCourse(i);
         }
 
         setContentView(R.layout.course_info);
 
-        ((TextView)findViewById((R.id.courseInfo))).setText(course.viewCourseInfo());
+        ((TextView)findViewById(R.id.courseInfo)).setText(course.viewCourseInfo());
+
+        if(this.myApplicationData.getMainUser().canRegister(course)==false)
+            ((Button)findViewById(R.id.addDropButton)).setText("Drop");
+        else
+            ((Button)findViewById(R.id.addDropButton)).setText("Add");
+
+        this.myApplicationData.setMainCourse(course);
+    }
+
+    /**
+            * Method for adding or dropping a course.
+            * @param v Current View of application.
+     */
+    public void addDropCourse(View v) {
+        //grabbed for legibility
+        User user = this.myApplicationData.getMainUser();
+        Course course = this.myApplicationData.getMainCourse();
+        Button button = (Button)v;
+
+        if(user.canRegister(course)==false) {
+            ((TextView) findViewById(R.id.addDropFeedback)).setText("Course dropped");
+            user.getCourses().remove(course);
+            button.setText("Add");
+        }
+        else {
+            ((TextView) findViewById(R.id.addDropFeedback)).setText("Course added");
+            user.getCourses().add(course);
+            button.setText("Drop");
+        }
     }
 
     /**
@@ -372,21 +398,36 @@ public class MainActivity extends AppCompatActivity {
      * @param v Current View of application.
      */
     public void displayDailySchedule(View v) {
-        setContentView(R.layout.daily_schedule_activity);
 
         setContentView(R.layout.daily_schedule_activity);
-        Course temp = new Course();
-        User user = new User ();
-        temp.setName("MATH1000");
 
-        TextView textView = (TextView)findViewById(R.id.textView1);
-        textView.setText(temp.getName());
+        TextView course1 = (TextView) findViewById(R.id.schedule1);
+        TextView course2 = (TextView) findViewById(R.id.schedule2);
+        TextView course3 = (TextView) findViewById(R.id.schedule3);
+        TextView course4 = (TextView) findViewById(R.id.schedule4);
+        TextView course5 = (TextView) findViewById(R.id.schedule5);
 
-        TextView textView2 = (TextView)findViewById(R.id.textView2);
-        stDate(textView2);
-        TextView textView3 = (TextView)findViewById(R.id.textView3);
-        endDate(textView3);
+        ArrayList<String> courseSchedule = new ArrayList<String>();
 
+        for (int i = 0; i < this.myApplicationData.getMainUser().getCourses().size(); i++) {
+            courseSchedule.add(this.myApplicationData.getMainUser().getCourses().get(i).getSchedule());
+        }
+
+        if(courseSchedule.size()>0) {
+            course1.setText(courseSchedule.get(0));
+
+            if(courseSchedule.size()>1)
+                course2.setText(courseSchedule.get(1));
+
+            if(courseSchedule.size()>2)
+                course3.setText(courseSchedule.get(2));
+
+            if(courseSchedule.size()>3)
+                course4.setText(courseSchedule.get(3));
+
+            if(courseSchedule.size()>4)
+                course5.setText(courseSchedule.get(4));
+        }
     }
 
     /**
@@ -394,7 +435,38 @@ public class MainActivity extends AppCompatActivity {
      * @param v Current View of application.
      */
     public void enterMyCourses(View v) {
-        setContentView(R.layout.mycourses_activity);
+        if(this.myApplicationData.getMainUser().getCourses().size()>0) {
+            setContentView(R.layout.mycourses_activity);
+
+            Button course1 = (Button) findViewById(R.id.mycourse1);
+            Button course2 = (Button) findViewById(R.id.mycourse2);
+            Button course3 = (Button) findViewById(R.id.mycourse3);
+            Button course4 = (Button) findViewById(R.id.mycourse4);
+            Button course5 = (Button) findViewById(R.id.mycourse5);
+
+            ArrayList<String> courseNames = new ArrayList<String>();
+
+            for (int i = 0; i < this.myApplicationData.getMainUser().getCourses().size(); i++) {
+                courseNames.add(this.myApplicationData.getMainUser().getCourses().get(i).courseCode());
+            }
+
+            if(courseNames.size()>0) {
+                course1.setText(courseNames.get(0));
+
+                if(courseNames.size()>1)
+                    course2.setText(courseNames.get(1));
+
+                if(courseNames.size()>2)
+                    course3.setText(courseNames.get(2));
+
+                if(courseNames.size()>3)
+                    course4.setText(courseNames.get(3));
+
+                if(courseNames.size()>4)
+                    course5.setText(courseNames.get(4));
+            }
+
+        }
     }
 
     /**
@@ -409,7 +481,8 @@ public class MainActivity extends AppCompatActivity {
      * Method for enterring the logout portion of the application UI.
      * @param v Current View of application.
      */
-    public void enterLogout(View v) {
+    public void logout(View v) {
+        this.myApplicationData.setMainUser(null);
         setContentView(R.layout.activity_main);
     }
 
@@ -417,7 +490,9 @@ public class MainActivity extends AppCompatActivity {
      * Method for going back to home screen of application.
      * @param v Current View of application.
      */
-    public void backToHome(View v) {
+    public void enterUserFromCourse(View v) {
+        ((Button)v).setText("");
+        this.myApplicationData.setMainCourse(null);
         setContentView(R.layout.user_activity);
     }
 
@@ -435,7 +510,6 @@ public class MainActivity extends AppCompatActivity {
         //String testSize = (String)users.getUsers().size();
         TextView text = findViewById(R.id.loginMessage);
         text.setText("Invalid login information, please try again");
-
         if(loginResult != null){
             //set the current user
             this.myApplicationData.setMainUser(loginResult);

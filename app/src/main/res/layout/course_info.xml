@@ -25,6 +25,7 @@
         android:layout_marginEnd="138dp"
         android:layout_marginStart="138dp"
         android:layout_marginTop="226dp"
+        android:onClick="addDropCourse"
         android:text="Add Course"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,7 @@
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="22dp"
-        android:onClick="enterUser"
+        android:onClick="enterUserFromCourse"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,24 +47,16 @@
         app:layout_constraintTop_toBottomOf="@+id/addDropButton" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/addDropFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="29dp"
         android:layout_marginEnd="163dp"
-        android:layout_marginTop="17dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseInfo" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="153dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginTop="19dp"
-        android:text="TextView"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="178dp"
         app:layout_constraintBottom_toTopOf="@+id/addDropButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseInfo" />
+
 </android.support.constraint.ConstraintLayout>

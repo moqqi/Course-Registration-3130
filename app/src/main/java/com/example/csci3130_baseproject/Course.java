@@ -192,6 +192,14 @@ public class Course {
     }
 
     /**
+     * Returns the course schedule.
+     * @return String of schedule.
+     */
+    public String getSchedule() {
+        return this.courseCode() + ": " + this.getClass_start() + " - " + this.getClass_end();
+    }
+
+    /**
      * Get class start Date from current course.
      * @return Date of class_start.
      */

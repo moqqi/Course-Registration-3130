@@ -93,6 +93,33 @@ public class User implements Serializable {
     }
 
     /**
+     * Method to check whether a user can register
+     * @return boolean
+     */
+    public boolean canRegister(Course course) {
+        boolean result = true;
+
+        if(courses.contains(course) || courses.size()==5)
+            result = false;
+
+        return result;
+    }
+    /**
+     * Add a course.
+     */
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    /**
+     * Drop a course.
+     */
+    public void dropCourse(Course course) {
+        courses.remove(course);
+    }
+
+
+    /**
      * Mapping required for adding attributes of User for use on Firebase.
      * @return Mapping of Name and Value.
      */

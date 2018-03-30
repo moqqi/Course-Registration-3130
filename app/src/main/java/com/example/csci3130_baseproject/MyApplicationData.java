@@ -13,6 +13,7 @@ public class MyApplicationData extends Application{
     public DatabaseReference firebaseReference;
     public FirebaseDatabase firebaseDBInstance;
     public User mainUser;
+    public Course mainCourse;
 
     public User getMainUser() {
         return mainUser;
@@ -21,4 +22,7 @@ public class MyApplicationData extends Application{
     public void setMainUser(User mainUser) {
         this.mainUser = mainUser;
     }
+
+    public Course getMainCourse() { return mainCourse; }
+    public void setMainCourse(Course mainCourse) { this.mainCourse = mainCourse; }
 }

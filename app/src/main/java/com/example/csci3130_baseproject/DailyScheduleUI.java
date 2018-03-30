@@ -1,10 +1,7 @@
 package com.example.csci3130_baseproject;
-import java.text.Format;
-import java.util.Date;
 import java.util.Calendar;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -29,12 +26,12 @@ public class DailyScheduleUI extends AppCompatActivity   {
         User user = new User ();
         temp.setName("MATH1000");
 
-        TextView textView = (TextView)findViewById(R.id.textView1);
+        TextView textView = (TextView)findViewById(R.id.schedule1);
         textView.setText(temp.getName());
 
-        TextView textView2 = (TextView)findViewById(R.id.textView2);
+        TextView textView2 = (TextView)findViewById(R.id.schedule2);
         stDate(textView2);
-        TextView textView3 = (TextView)findViewById(R.id.textView3);
+        TextView textView3 = (TextView)findViewById(R.id.schedule3);
         endDate(textView3);
 
 
