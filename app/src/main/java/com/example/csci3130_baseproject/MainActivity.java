@@ -17,6 +17,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     private static CourseDatabase courses = new CourseDatabase();
     private static UserDatabase users = new UserDatabase();
+    private MyApplicationData myApplicationData;
 
     /**
      * Sets content view to activity main and calls super onCreate.
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myApplicationData = new MyApplicationData();
+
+
 
         /**courses**/
         //empty waitlist
@@ -425,14 +430,17 @@ public class MainActivity extends AppCompatActivity {
         EditText pwField = findViewById(R.id.password);
         String username = userField.getText().toString();
         String password = pwField.getText().toString();
-        boolean loginResult = users.login(username, password);
+        User loginResult = users.login(username, password);
 
         //String testSize = (String)users.getUsers().size();
         TextView text = findViewById(R.id.loginMessage);
         text.setText("Invalid login information, please try again");
 
-        if(loginResult==true)
+        if(loginResult != null){
+            //set the current user
+            this.myApplicationData.setMainUser(loginResult);
             setContentView(R.layout.user_activity);
+        }
     }
 
     /**

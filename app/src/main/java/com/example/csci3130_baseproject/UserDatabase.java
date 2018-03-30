@@ -63,15 +63,15 @@ public class UserDatabase{
      * @param password password of user.
      * @return Boolean check if login was successful.
      */
-    public boolean login(String email, String password) {
-        boolean loginResult = false;
+    public User login(String email, String password) {
+        User result = null;
 
         for(int i=0; i<userList.size(); i++)
             if(userList.get(i).getEmail().equals(email)) {
                 if(userList.get(i).getPassword().equals(password))
-                    loginResult = true;
+                    result = userList.get(i);
             }
 
-        return loginResult;
+        return result;
     }
 }
