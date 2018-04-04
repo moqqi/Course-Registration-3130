@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Course-Registration-3130.iml" filepath="$PROJECT_DIR$/.idea/Course-Registration-3130.iml" />
+      <module fileurl="file://C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Iteration 3\Course-Registration-3130-iteration3finishedUI\Backup.iml" filepath="C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Iteration 3\Course-Registration-3130-iteration3finishedUI\Backup.iml" />
+      <module fileurl="file://C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Course-Registration-3130-iteration2final\Course-Registration-3130.iml" filepath="C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Course-Registration-3130-iteration2final\Course-Registration-3130.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Course-Registration-3130-iteration3finishedUI.iml" filepath="$PROJECT_DIR$/Course-Registration-3130-iteration3finishedUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Iteration 3\Course-Registration-3130-iteration3finishedUI\app\app.iml" filepath="C:\Users\Tyler\Documents\School\2017-2018\Winter\CSCI3130\Project Stuff\Iteration 3\Course-Registration-3130-iteration3finishedUI\app\app.iml" />
     </modules>
   </component>
 </project>

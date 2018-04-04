@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1083625602992",
+    "firebase_url": "https://course-registration-3130.firebaseio.com",
+    "project_id": "course-registration-3130",
+    "storage_bucket": "course-registration-3130.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083625602992:android:318096c1819fb994",
+        "android_client_info": {
+          "package_name": "com.example.csci3130_baseproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083625602992-nafp9v6npifg06j13mpuhv9dg51c7tac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.csci3130_baseproject",
+            "certificate_hash": "49954c085f574875dec6c04c961a75ff84b0350e"
+          }
+        },
+        {
+          "client_id": "1083625602992-a94k90u3f1553oijtfn7a4m30vpn1jp7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6UaC7H9ZRagwTrDc3_UgRAPjVHLJE_QM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083625602992-a94k90u3f1553oijtfn7a4m30vpn1jp7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
