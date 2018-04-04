@@ -115,4 +115,20 @@ public class CourseDatabase {
 
         return null;
     }
+
+    /**
+     * Search for a course by course code
+     * @param code Code of course requested from Database.
+     * @return Course from Database with requested code.
+     */
+    public Course searchByCode(String code) {
+        if(courseList.size()<1) return null;
+
+        for(int i=0; i<courseList.size(); i++) {
+            if (courseList.get(i).courseCode().equals(code))
+                return courseList.get(i);
+        }
+
+        return null;
+    }
 }

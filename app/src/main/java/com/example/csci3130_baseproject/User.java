@@ -93,17 +93,32 @@ public class User implements Serializable {
     }
 
     /**
-     * Method to check whether a user can register
+     * Method to check whether a user is already registered in a course
      * @return boolean
      */
-    public boolean canRegister(Course course) {
-        boolean result = true;
-
-        if(courses.contains(course) || courses.size()==5)
-            result = false;
-
-        return result;
+    public boolean contains(Course course) {
+        if(courses.contains(course))
+            return true;
+        else
+            return false;
     }
+
+    /**
+     * Checking for course conflicts
+     * @param id of Course requested from database.
+     * @return Course with the conflict or null (no conflict)
+     */
+    public Course conflictCheck(Course courseToAdd) {
+
+        if(courses.size()<1) return null;
+
+        for(int i=0; i<courses.size(); i++) {
+            if (courses.get(i).getClass_start().equals(courseToAdd.getClass_start()))
+                return courses.get(i);
+        }
+        return null;
+    }
+
     /**
      * Add a course.
      */

@@ -63,6 +63,17 @@ public class Course {
     }
 
     /**
+     * Checks if the course is full
+     * @return Boolean indicating whether the course is full or not
+     */
+    public boolean isFull() {
+        if(current==capacity)
+            return true;
+        else
+            return false;
+    }
+
+    /**
      * Sets list of students in the course.
      * @param students List of updated students enrolled in course.
      */
@@ -143,6 +154,33 @@ public class Course {
     }
 
     /**
+     * Add a student the current course waitlist.
+     * @param waitlist updated with the User.
+     */
+    public void addToWaitlist(User student) {
+        waitlist.add(student);
+    }
+
+    /**
+     * Remove a student the current course waitlist.
+     * @param waitlist updated without the User.
+     */
+    public void removeFromWaitlist(User student) {
+        waitlist.remove(student);
+    }
+
+    /**
+     * Simple method to check if the user is on a waitlist
+     * @param waitlist
+     */
+    public boolean isOnWaitlist(User student) {
+        if(waitlist.contains(student)==true)
+            return true;
+        else
+            return false;
+    }
+
+    /**
      * Get the capacity of the course.
      * @return integer value of the size of the course.
      */
@@ -167,6 +205,22 @@ public class Course {
     }
 
     /**
+     * Increments the current stat when adding a student
+     * @param current Updated current integer value.
+     */
+    public void increaseCurrent() {
+        if(current<capacity) current++;
+    }
+
+    /**
+     * Decrements the current stat when removing a student
+     * @param current Updated current integer value.
+     */
+    public void decreaseCurrent() {
+        if(current>0) current--;
+    }
+
+    /**
      * Set the current open slots of the course
      * @param current Updated capacity integer value.
      */
@@ -180,7 +234,9 @@ public class Course {
      */
     public String viewCourseInfo() {
         return this.getDepartment() + this.getId() + "\n" + this.getName() + "\n"
-                + "Capacity: " + this.getCapacity();
+                + this.getClass_start() + " - " + this.getClass_end() + "\n"
+                + "Capacity: " + this.getCurrent() + "/" + this.getCapacity() +
+                "\nWaitlist: " + this.getWaitlist().size();
     }
 
     /**

@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:onClick="enterCourseInfoUI"
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginTop="32dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:onClick="enterCourseInfoUI"
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mycourse1" />
 
@@ -31,7 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginTop="32dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:onClick="enterCourseInfoUI"
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mycourse2" />
 
@@ -39,11 +45,11 @@
         android:id="@+id/mycourse4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="154dp"
         android:layout_marginEnd="148dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:onClick="enterCourseInfoUI"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mycourse3" />
 
@@ -51,11 +57,25 @@
         android:id="@+id/mycourse5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="74dp"
         android:layout_marginEnd="148dp"
         android:layout_marginTop="32dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:onClick="enterCourseInfoUI"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mycourse4" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="33dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginTop="32dp"
+        android:onClick="enterUser"
+        android:text="Back"
+        android:backgroundTint="@android:color/holo_green_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mycourse5" />
 </android.support.constraint.ConstraintLayout>
