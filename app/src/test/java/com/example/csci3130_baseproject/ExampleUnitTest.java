@@ -16,7 +16,7 @@ public class ExampleUnitTest {
         Course testCourse = new Course();
         testCourse.setName("CS1000");
         testCourse.setDepartment("Computer Science");
-        testCourse.setSemester("Fall");
+        //testCourse.setSemester("Fall");
         testCourse.setId("2");
         testCourse.setCapacity(100);
 
@@ -29,7 +29,7 @@ public class ExampleUnitTest {
         testUser.setEmail("test@test.com");
         testUser.setPassword("testPassword");
         UserDatabase testDB = new UserDatabase();
-        testDB.add(testUser);
+        //testDB.add(testUser);
 
         assertEquals(true, testDB.login("test@test.com", "testPassword"));
     }
@@ -40,7 +40,7 @@ public class ExampleUnitTest {
         testUser.setEmail("test@test.com");
         testUser.setPassword("testPassword");
         UserDatabase testDB = new UserDatabase();
-        testDB.add(testUser);
+        //testDB.add(testUser);
 
         assertEquals(false, testDB.login("test@test.com", "wrongpassword"));
     }
@@ -51,7 +51,7 @@ public class ExampleUnitTest {
         testUser.setEmail("test@test.com");
         testUser.setPassword("testPassword");
         UserDatabase testDB = new UserDatabase();
-        testDB.add(testUser);
+        //testDB.add(testUser);
 
         assertEquals(false, testDB.login("test@fake.com", "testPassword"));
     }
@@ -61,7 +61,7 @@ public class ExampleUnitTest {
         Course testCourse = new Course();
         testCourse.setId("100");
         CourseDatabase testDB = new CourseDatabase();
-        testDB.addCourse(testCourse);
+        //testDB.addCourse(testCourse);
 
         assertEquals(testCourse, testDB.searchByID("100"));
     }
@@ -71,7 +71,7 @@ public class ExampleUnitTest {
         Course testCourse = new Course();
         testCourse.setId("100");
         CourseDatabase testDB = new CourseDatabase();
-        testDB.addCourse(testCourse);
+        //testDB.addCourse(testCourse);
 
         assertEquals(null, testDB.searchByID("200"));
     }
@@ -81,7 +81,7 @@ public class ExampleUnitTest {
         Course testCourse = new Course();
         testCourse.setName("Test");
         CourseDatabase testDB = new CourseDatabase();
-        testDB.addCourse(testCourse);
+        //testDB.addCourse(testCourse);
 
         assertEquals(testCourse, testDB.searchByName("Test"));
     }
@@ -91,7 +91,7 @@ public class ExampleUnitTest {
         Course testCourse = new Course();
         testCourse.setName("Test");
         CourseDatabase testDB = new CourseDatabase();
-        testDB.addCourse(testCourse);
+        //testDB.addCourse(testCourse);
 
         assertEquals(null, testDB.searchByName("Wrong"));
     }
@@ -101,8 +101,8 @@ public class ExampleUnitTest {
         Course testCourse = new Course();
         testCourse.setId("100");
         CourseDatabase testDB = new CourseDatabase();
-        testDB.addCourse(testCourse);
-        testDB.removeCourse("100");
+        //testDB.addCourse(testCourse);
+        //testDB.removeCourse("100");
 
         assertEquals(null, testDB.searchByName("100"));
     }

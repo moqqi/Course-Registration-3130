@@ -21,6 +21,25 @@ public class User implements Serializable {
     public User(){
     }
 
+    public User(Map<String, Object> mapObj){
+        //this.setId((String) mapObj.get("id"));
+        this.setEmail((String) mapObj.get("email"));
+        this.setPassword((String) mapObj.get("password"));
+
+        ArrayList<Course> courses = new ArrayList<Course>();
+        ArrayList<Object> coursesMap = (ArrayList<Object>) mapObj.get("courses");
+        if(coursesMap != null){
+            for(Object obj: coursesMap){
+                if (obj instanceof Map) {
+                    Map<String, Object> courseMapObj = (Map<String, Object>) obj;
+                    Course course = new Course(courseMapObj);
+                    courses.add(course);
+                }
+            }
+        }
+        this.setCourses(courses);
+    }
+
     public User(String id, String email, String password, ArrayList<Course> courses) {
         this.id = id;
         this.email = email;
@@ -100,6 +119,7 @@ public class User implements Serializable {
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("email", email);
+        //result.put("id", id);
         result.put("password", password);
         result.put("courses", courses);
         return result;

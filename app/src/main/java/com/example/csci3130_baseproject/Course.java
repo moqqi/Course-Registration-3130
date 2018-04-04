@@ -12,7 +12,7 @@ import java.util.Map;
  * Class used for Course Objects used throughout application.
  */
 public class Course {
-    private String name, id, department;
+    private String name, id, courseNum, department;
     private ArrayList<User> waitlist;
     private String class_start;
     private String class_end;
@@ -27,16 +27,58 @@ public class Course {
 
     }
 
-    public Course(String name, String id, String department, ArrayList<User> waitlist, String class_start, String class_end,
+    public Course(Map<String, Object> mapObj){
+        this.setName((String) mapObj.get("name"));
+        this.setId((String) mapObj.get("id"));
+        this.setDepartment((String) mapObj.get("department"));
+        this.setClass_start((String) mapObj.get("class_start"));
+        this.setClass_end((String) mapObj.get("class_end"));
+
+        Long currentValue = (Long) mapObj.get("current");
+        if(currentValue != null)
+            this.setCurrent(currentValue.intValue());
+        Long capacityValue = (Long) mapObj.get("capacity");
+        if(capacityValue != null)
+            this.setCapacity(capacityValue.intValue());
+
+        ArrayList<User> students = new ArrayList<User>();
+        ArrayList<Object> mapStudents = (ArrayList<Object>) mapObj.get("students");
+        if(mapStudents != null){
+            for(Object obj: mapStudents){
+                if (obj instanceof Map) {
+                    Map<String, Object> studentMapObj = (Map<String, Object>) obj;
+                    User student = new User(studentMapObj);
+                    students.add(student);
+                }
+            }
+        }
+        this.setStudents(students);
+
+        ArrayList<User> waitlist = new ArrayList<User>();
+        ArrayList<Object> mapWaitlist = (ArrayList<Object>) mapObj.get("waitlist");
+        if(mapWaitlist != null) {
+            for (Object obj : mapWaitlist) {
+                if (obj instanceof Map) {
+                    Map<String, Object> studentMapObj = (Map<String, Object>) obj;
+                    User student = new User(studentMapObj);
+                    waitlist.add(student);
+                }
+            }
+        }
+        this.setWaitlist(waitlist);
+    }
+
+    public Course(String name, String id, String courseNum, String department, ArrayList<User> waitlist, String class_start, String class_end,
                   int capacity, int current, ArrayList<User> students){
         this.name = name;
         this.id = id;
+        this.courseNum = courseNum;
         this.department = department;
         this.waitlist = waitlist;
         this.class_start = class_start;
         this.class_end = class_end;
         this.capacity = capacity;
-        this.students = students;
+        setStudents(students);
         this.current = current;
 
     }
@@ -100,6 +142,14 @@ public class Course {
      */
     public void setId(String id) {
         this.id  = id;
+    }
+
+    public String getCourseNum() {
+        return courseNum;
+    }
+
+    public void setCourseNum(String courseNum) {
+        this.courseNum = courseNum;
     }
 
     /**
@@ -231,12 +281,15 @@ public class Course {
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
+        result.put("id", id);
         result.put("department", department);
+        result.put("courseNum", courseNum);
         result.put("waitlist", waitlist);
-        result.put("class_start", class_start.toString());
-        result.put("class_end", class_end.toString());
+        result.put("class_start", class_start);
+        result.put("class_end", class_end);
         result.put("capacity", capacity);
         result.put("students", students);
+        result.put("current", current);
         return result;
     }
 }
