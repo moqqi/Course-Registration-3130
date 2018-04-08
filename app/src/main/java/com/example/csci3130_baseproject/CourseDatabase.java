@@ -1,13 +1,7 @@
 package com.example.csci3130_baseproject;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Class acting as Database for course objects.
  */
@@ -17,23 +11,10 @@ public class CourseDatabase {
 
     public void connectToFirebase(DatabaseReference appData){
         this.appData = appData;
+    }
 
-
-        appData.addValueEventListener(new ValueEventListener() {
-                                      @Override
-                                      public void onDataChange(DataSnapshot dataSnapshot) {
-                                          Course course = dataSnapshot.getValue(Course.class);
-                                          Map<String, Course> td = (HashMap<String,Course>) dataSnapshot.getValue();
-
-                                          courseList = new ArrayList<Course>(td.values());
-
-                                      }
-                                      @Override
-                                      public void onCancelled(DatabaseError databaseError) {
-                                          System.out.println("The read failed: " + databaseError.getCode());
-                                      }
-
-                                  });
+    public void updateCourse(Course course){
+        appData.child(course.getId()).setValue(course);
     }
 
     /**
@@ -41,8 +22,24 @@ public class CourseDatabase {
      * @param course Course object to be added to database.
      */
     public void addCourse(Course course) {
-        /*String cID = appData.push().getKey();//each entry needs a unique ID
-        appData.child(cID).setValue(course);*/
+        String cID = appData.push().getKey();//each entry needs a unique ID
+        course.setId(cID);
+        //course.setWaitlist(null);
+        //course.setStudents(null);
+        ArrayList<User> students = new ArrayList<User>();
+        for(User student : course.getStudents()){
+            student.setCourses(null);
+            students.add(student);
+        }
+        course.setStudents(students);
+
+        ArrayList<User> waitlist = new ArrayList<User>();
+        for(User student : course.getWaitlist()){
+            student.setCourses(null);
+            waitlist.add(student);
+        }
+        course.setStudents(students);
+        appData.child(cID).setValue(course);
         courseList.add(course);
     }
 
@@ -71,17 +68,17 @@ public class CourseDatabase {
         }
 
         /**
-        if(courseList.size()<1)
-            return;
+         if(courseList.size()<1)
+         return;
 
-        boolean courseRemoved = false;
+         boolean courseRemoved = false;
 
-        for(int i=0; i<courseList.size(); i++) {
-            if(courseList.get(i).getId().equals(id)) {
-                courseList.remove(i);
-                courseRemoved = true;
-            }
-        }**/
+         for(int i=0; i<courseList.size(); i++) {
+         if(courseList.get(i).getId().equals(id)) {
+         courseList.remove(i);
+         courseRemoved = true;
+         }
+         }**/
     }
 
     /**
@@ -94,7 +91,7 @@ public class CourseDatabase {
         if(courseList.size()<1) return null;
 
         for(int i=0; i<courseList.size(); i++) {
-            if (courseList.get(i).courseCode().equals(cID))
+            if (courseList.get(i).getCourseNum().equals(cID))
                 return courseList.get(i);
         }
         return null;
@@ -130,5 +127,9 @@ public class CourseDatabase {
         }
 
         return null;
+    }
+
+    public void setCourseList(ArrayList<Course> courseList){
+        this.courseList = courseList;
     }
 }

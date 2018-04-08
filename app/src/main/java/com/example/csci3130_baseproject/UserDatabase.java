@@ -1,15 +1,7 @@
 package com.example.csci3130_baseproject;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Class acting as User database for functionality.
  */
@@ -19,21 +11,10 @@ public class UserDatabase{
 
     public void connectToFirebase(DatabaseReference appData){
         this.appData = appData;
+    }
 
-        appData.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                Map<String, User> td = (HashMap<String,User>) dataSnapshot.getValue();
-
-                userList = new ArrayList<User>(td.values());
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-
-        });
+    public void updateUser(User user){
+        appData.child(user.getId()).setValue(user);
     }
 
     public ArrayList<User> getUsers() {
@@ -45,9 +26,21 @@ public class UserDatabase{
      * @param user for adding into the database.
      */
     public void add(User user){
-        /*String uID = appData.push().getKey();//each entry needs a unique Id
-        //courseList.add(course);
-        appData.child(uID).setValue(user);*/
+        String uID = appData.push().getKey();//each entry needs a unique Id
+        user.setId(uID);
+
+        ArrayList<Course> courses = new ArrayList<Course>();
+        if(user.getCourses() != null){
+            for(Course course : user.getCourses()){
+                course.setStudents(null);
+                course.setWaitlist(null);
+                courses.add(course);
+            }
+        }
+        user.setCourses(courses);
+
+
+        appData.child(uID).setValue(user);
         userList.add(user);
     }
 
@@ -73,5 +66,8 @@ public class UserDatabase{
             }
 
         return result;
+    }
+    public void setUserList(ArrayList<User> userList){
+        this.userList = userList;
     }
 }

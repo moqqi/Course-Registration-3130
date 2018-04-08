@@ -1,6 +1,7 @@
 package com.example.csci3130_baseproject;
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
@@ -11,8 +12,8 @@ import java.util.Map;
 /**
  * Class used for Course Objects used throughout application.
  */
-public class Course {
-    private String name, id, department;
+public class Course implements Serializable {
+    private String name, id, department, courseNum;
     private ArrayList<User> waitlist;
     private String day;
     private String class_start;
@@ -28,13 +29,57 @@ public class Course {
 
     }
 
-    public Course(String name, String id, String department, ArrayList<User> waitlist, String day, String class_start, String class_end,
+    public Course(Map<String, Object> mapObj){
+        this.setName((String) mapObj.get("name"));
+        this.setId((String) mapObj.get("id"));
+        this.setDepartment((String) mapObj.get("department"));
+        this.setClass_start((String) mapObj.get("class_start"));
+        this.setClass_end((String) mapObj.get("class_end"));
+        this.setCourseNum((String) mapObj.get("courseNum"));
+        this.setDay((String) mapObj.get("day"));
+
+        Long currentValue = (Long) mapObj.get("current");
+        if(currentValue != null)
+            this.setCurrent(currentValue.intValue());
+        Long capacityValue = (Long) mapObj.get("capacity");
+        if(capacityValue != null)
+            this.setCapacity(capacityValue.intValue());
+
+        ArrayList<User> students = new ArrayList<User>();
+        ArrayList<Object> mapStudents = (ArrayList<Object>) mapObj.get("students");
+        if(mapStudents != null){
+            for(Object obj: mapStudents){
+                if (obj instanceof Map) {
+                    Map<String, Object> studentMapObj = (Map<String, Object>) obj;
+                    User student = new User(studentMapObj);
+                    students.add(student);
+                }
+            }
+        }
+        this.setStudents(students);
+
+        ArrayList<User> waitlist = new ArrayList<User>();
+        ArrayList<Object> mapWaitlist = (ArrayList<Object>) mapObj.get("waitlist");
+        if(mapWaitlist != null) {
+            for (Object obj : mapWaitlist) {
+                if (obj instanceof Map) {
+                    Map<String, Object> studentMapObj = (Map<String, Object>) obj;
+                    User student = new User(studentMapObj);
+                    waitlist.add(student);
+                }
+            }
+        }
+        this.setWaitlist(waitlist);
+    }
+
+    public Course(String name, String id, String courseNum, String department, ArrayList<User> waitlist, String day, String class_start, String class_end,
                   int capacity, int current, ArrayList<User> students){
         this.name = name;
         this.id = id;
+        this.courseNum = courseNum;
         this.department = department;
-        this.waitlist = waitlist;
         this.day = day;
+        this.waitlist = waitlist;
         this.class_start = class_start;
         this.class_end = class_end;
         this.capacity = capacity;
@@ -96,7 +141,7 @@ public class Course {
      * @param day Updated day of course.
      */
     public void setDay(String day) {
-        this.name  = day;
+        this.day  = day;
     }
 
     /**
@@ -251,7 +296,7 @@ public class Course {
      * @return String of department, name, and capacity of current course.
      */
     public String viewCourseInfo() {
-        return this.getDepartment() + this.getId() + "\n" + this.getName() + "\n"
+        return this.getDepartment() + this.getCourseNum() + "\n" + this.getName() + "\n"
                 + this.getDay() + ": " + this.getClass_start() + " - " + this.getClass_end() + "\n"
                 + "Capacity: " + this.getCurrent() + "/" + this.getCapacity() +
                 "\nWaitlist: " + this.getWaitlist().size();
@@ -262,7 +307,7 @@ public class Course {
      * @return String of department and ID.
      */
     public String courseCode() {
-        return this.getDepartment() + this.getId();
+        return this.getDepartment() + this.getCourseNum();
     }
 
     /**
@@ -305,6 +350,14 @@ public class Course {
         this.class_end = class_end;
     }
 
+    public String getCourseNum(){
+        return this.courseNum;
+    }
+
+    public void setCourseNum(String courseNum){
+        this.courseNum = courseNum;
+    }
+
     /**
      * Mapping required for adding attributes of User for use on Firebase.
      * @return Mapping of Name and Value.
@@ -313,12 +366,15 @@ public class Course {
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
+        result.put("id", id);
         result.put("department", department);
+        result.put("courseNum", courseNum);
         result.put("waitlist", waitlist);
-        result.put("class_start", class_start.toString());
-        result.put("class_end", class_end.toString());
+        result.put("class_start", class_start);
+        result.put("class_end", class_end);
         result.put("capacity", capacity);
         result.put("students", students);
+        result.put("current", current);
         return result;
     }
 }

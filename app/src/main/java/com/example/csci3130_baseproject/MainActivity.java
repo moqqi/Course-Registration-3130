@@ -1,19 +1,25 @@
 package com.example.csci3130_baseproject;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * MainActivity Class that handles view states of application.
@@ -21,6 +27,12 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     private static CourseDatabase courses = new CourseDatabase();
     private static UserDatabase users = new UserDatabase();
+    private DatabaseReference appData;
+    private ValueEventListener listener;
+    private ProgressBar spinner;
+    private EditText userField, pwField;
+    private TextView loginMessage;
+    private Button loginButton;
     private MyApplicationData myApplicationData;
 
     /**
@@ -32,36 +44,104 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.VISIBLE);
+
+        userField = findViewById(R.id.username);
+        userField.setVisibility(View.GONE);
+
+        pwField = findViewById(R.id.password);
+        pwField.setVisibility(View.GONE);
+
+        loginMessage = findViewById(R.id.loginMessage);
+        loginMessage.setVisibility(View.GONE);
+
+        loginButton = (Button)findViewById(R.id.button4);
+        loginButton.setVisibility(View.GONE);
+
+        appData = FirebaseDatabase.getInstance().getReference();
+
+        courses.connectToFirebase(FirebaseDatabase.getInstance().getReference("course"));
+        users.connectToFirebase(FirebaseDatabase.getInstance().getReference("user"));
+
+
+        listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                appData.removeEventListener(listener);
+                Map<String, Object> objectMap = (HashMap<String, Object>)
+                        dataSnapshot.getValue();
+
+                Map<String, Object> firebaseCourses = (HashMap<String, Object>) objectMap.get("course");
+                ArrayList<Course> courseList = new ArrayList<Course>();
+                Map<String, Object> firebaseUsers = (HashMap<String, Object>) objectMap.get("user");
+                ArrayList<User> userList = new ArrayList<User>();
+                for (Object obj : firebaseCourses.values()) {
+                    if (obj instanceof Map) {
+                        Map<String, Object> mapObj = (Map<String, Object>) obj;
+                        Course course = new Course(mapObj);
+                        courseList.add(course);
+                    }
+                }
+
+                courses.setCourseList(courseList);
+
+                for (Object obj : firebaseUsers.values()) {
+                    if (obj instanceof Map) {
+                        Map<String, Object> mapObj = (Map<String, Object>) obj;
+                        User user = new User(mapObj);
+                        userList.add(user);
+                    }
+                }
+
+                users.setUserList(userList);
+
+                spinner.setVisibility(View.GONE);
+                userField.setVisibility(View.VISIBLE);
+                pwField.setVisibility(View.VISIBLE);
+                loginMessage.setVisibility(View.VISIBLE);
+                loginButton.setVisibility(View.VISIBLE);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                appData.removeEventListener(this);
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        };
+        appData.addValueEventListener(listener);
+
         myApplicationData = new MyApplicationData();
 
 
 
-        /**courses**/
+        /**
+        //courses
         //science
-        Course sci1 = new Course("Intro to Biology", "100", "BIOL", new ArrayList<User>(), "MW", "8:30", "9:30", 500, 500, new ArrayList<User>());
-        Course sci2 = new Course("Organic Chemistry", "240", "CHEM", new ArrayList<User>(), "MW", "11:30", "12:30", 75, 60, new ArrayList<User>());
-        Course sci3 = new Course("Physical Cosmology", "435", "PHYC", new ArrayList<User>(), "TR", "1:30", "2:30", 40, 20, new ArrayList<User>());
-        Course sci4 = new Course("Animal Behaviour", "350", "NESC", new ArrayList<User>(), "TR", "9:30", "10:30", 100, 40, new ArrayList<User>());
+        Course sci1 = new Course("Intro to Biology",null,"100", "BIOL", new ArrayList<User>(), "MW", "8:30", "9:30", 500, 500, new ArrayList<User>());
+        Course sci2 = new Course("Organic Chemistry",null,  "240", "CHEM", new ArrayList<User>(), "MW", "11:30", "12:30", 75, 60, new ArrayList<User>());
+        Course sci3 = new Course("Physical Cosmology",null, "435", "PHYC", new ArrayList<User>(), "TR", "1:30", "2:30", 40, 20, new ArrayList<User>());
+        Course sci4 = new Course("Animal Behaviour",null, "350", "NESC", new ArrayList<User>(), "TR", "9:30", "10:30", 100, 40, new ArrayList<User>());
 
         //business and economics
-        Course bande1 = new Course("Strategy Implementation", "460", "BUSI", new ArrayList<User>(), "MW", "2:30", "3:30", 50, 30, new ArrayList<User>());
-        Course bande2 = new Course("Innovation Management", "320", "BUSI", new ArrayList<User>(), "TR", "10:30", "11:30", 100, 100, new ArrayList<User>());
-        Course bande3 = new Course("Intro to Macroeconomics", "110", "ECON", new ArrayList<User>(), "MW", "10:30", "11:30", 300, 250, new ArrayList<User>());
-        Course bande4 = new Course("Public Finance", "310", "ECON", new ArrayList<User>(), "TR", "3:30", "4:30", 150, 50, new ArrayList<User>());
+        Course bande1 = new Course("Strategy Implementation", null,"460", "BUSI", new ArrayList<User>(), "MW", "2:30", "3:30", 50, 30, new ArrayList<User>());
+        Course bande2 = new Course("Innovation Management", null,"320", "BUSI", new ArrayList<User>(), "TR", "10:30", "11:30", 100, 100, new ArrayList<User>());
+        Course bande3 = new Course("Intro to Macroeconomics", null,"110", "ECON", new ArrayList<User>(), "MW", "10:30", "11:30", 300, 250, new ArrayList<User>());
+        Course bande4 = new Course("Public Finance",null, "310", "ECON", new ArrayList<User>(), "TR", "3:30", "4:30", 150, 50, new ArrayList<User>());
 
         //engineering
-        Course eng1 = new Course("Engineering Design", "200", "ENGI", new ArrayList<User>(), "TR", "9:30", "10:30", 200, 100, new ArrayList<User>());
-        Course eng2 = new Course("Mechanics of Materials", "260", "ENGI", new ArrayList<User>(), "MW", "4:30", "5:30", 200, 100, new ArrayList<User>());
-        Course eng3 = new Course("Thermo-Fluid Engineering", "330", "ENGI", new ArrayList<User>(), "TR", "1:30", "2:30", 150, 140, new ArrayList<User>());
-        Course eng4 = new Course("Engineering Design", "120", "ENGI", new ArrayList<User>(), "MW", "11:30", "12:30", 300, 200, new ArrayList<User>());
+        Course eng1 = new Course("Engineering Design",null, "200", "ENGI", new ArrayList<User>(), "TR", "9:30", "10:30", 200, 100, new ArrayList<User>());
+        Course eng2 = new Course("Mechanics of Materials",null, "260", "ENGI", new ArrayList<User>(), "MW", "4:30", "5:30", 200, 100, new ArrayList<User>());
+        Course eng3 = new Course("Thermo-Fluid Engineering",null, "330", "ENGI", new ArrayList<User>(), "TR", "1:30", "2:30", 150, 140, new ArrayList<User>());
+        Course eng4 = new Course("Engineering Design",null, "120", "ENGI", new ArrayList<User>(), "MW", "11:30", "12:30", 300, 200, new ArrayList<User>());
 
         //other
-        Course other1 = new Course("Software Engineering", "350", "CSCI", new ArrayList<User>(), "MW", "8:30", "9:30", 100, 90, new ArrayList<User>());
-        Course other2 = new Course("Ancient Greek Philosophy", "240", "PHIL", new ArrayList<User>(), "TR", "9:30", "10:30", 200, 100, new ArrayList<User>());
-        Course other3 = new Course("American Literature", "310", "ENGL", new ArrayList<User>(), "TR", "11:30", "12:30", 50, 20, new ArrayList<User>());
-        Course other4 = new Course("Basic French", "120", "FREN", new ArrayList<User>(), "MW", "2:30", "3:30", 30, 10, new ArrayList<User>());
+        Course other1 = new Course("Software Engineering",null, "350", "CSCI", new ArrayList<User>(), "MW", "8:30", "9:30", 100, 90, new ArrayList<User>());
+        Course other2 = new Course("Ancient Greek Philosophy",null, "240", "PHIL", new ArrayList<User>(), "TR", "9:30", "10:30", 200, 100, new ArrayList<User>());
+        Course other3 = new Course("American Literature", null,"310", "ENGL", new ArrayList<User>(), "TR", "11:30", "12:30", 50, 20, new ArrayList<User>());
+        Course other4 = new Course("Basic French",null, "120", "FREN", new ArrayList<User>(), "MW", "2:30", "3:30", 30, 10, new ArrayList<User>());
 
-        /**users**/
+        //users
         //empty course list
         ArrayList<Course> user1Courses = new ArrayList<Course>();
         ArrayList<Course> user2Courses = new ArrayList<Course>();
@@ -123,34 +203,14 @@ public class MainActivity extends AppCompatActivity {
         courses.addCourse(other3);
         courses.addCourse(other4);
 
+
+
         //user database
         users.add(user1);
         users.add(user2);
         users.add(user3);
         users.add(user4);
-
-        //Get the app wide shared variables
-        /**
-        DatabaseReference firebaseDatabase= FirebaseDatabase.getInstance().getReference("user");
-
-
-        UserDatabase testUserDatebase = new UserDatabase();
-        testUserDatebase.connectToFirebase(firebaseDatabase);
-        User testUser = new User("userID", "userEmail", "userPassword", null, null);
-        testUserDatebase.add(testUser);
-        firebaseDatabase= FirebaseDatabase.getInstance().getReference("course");
-
-        ArrayList<User> students = new ArrayList<User>();
-        students.add(testUser);
-        CourseDatabase test = new CourseDatabase();
-        test.connectToFirebase(firebaseDatabase);
-        Course testCourse = new Course("testName", "testID", "testDepartment", null,
-                null, null, 10, students);
-        test.addCourse(testCourse);
          **/
-
-
-
     }
 
     /**
@@ -172,7 +232,17 @@ public class MainActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.courseInfo)).setText(course.viewCourseInfo());
 
-        if(this.myApplicationData.getMainUser().contains(course))
+        boolean check = false;
+
+        for(Course courseB : this.myApplicationData.getMainUser().getCourses()){
+            String thisCourseCode = courseB.getDepartment() + courseB.getCourseNum();
+            if(thisCourseCode.equals(courseCode)){
+                check = true;
+                break;
+            }
+        }
+
+        if(check)
             ((Button)findViewById(R.id.addDropButton)).setText("Drop");
         else
             ((Button)findViewById(R.id.addDropButton)).setText("Add");
@@ -181,18 +251,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-            * Method for adding or dropping a course.
-            * @param v Current View of application.
+     * Method for adding or dropping a course.
+     * @param v Current View of application.
      */
     public void addDropCourse(View v) {
         //grabbed for legibility
         User user = this.myApplicationData.getMainUser();
         Course course = this.myApplicationData.getMainCourse();
         Button button = (Button)v;
+        String courseCode = this.myApplicationData.getMainCourse().getDepartment() +
+                this.myApplicationData.getMainCourse().getCourseNum();
 
-        if(user.getCourses().contains(course)==true) {
+        boolean check = false;
+        Course studentCurrentCourse = null;
+
+        for(Course courseB : this.myApplicationData.getMainUser().getCourses()){
+            String thisCourseCode = courseB.getDepartment() + courseB.getCourseNum();
+            if(thisCourseCode.equals(courseCode)){
+                check = true;
+                studentCurrentCourse = courseB;
+                break;
+            }
+        }
+
+        if(check) {
             ((TextView) findViewById(R.id.addDropFeedback)).setText("Course dropped");
-            user.getCourses().remove(course);
+            user.getCourses().remove(studentCurrentCourse);
             button.setText("Add");
 
             if(course.isOnWaitlist(user)==true)
@@ -200,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
             else
                 course.decreaseCurrent();
 
+            users.updateUser(user);
+            courses.updateCourse(course);
             ((TextView)findViewById(R.id.courseInfo)).setText(course.viewCourseInfo());
         }
         else {
@@ -212,6 +298,8 @@ public class MainActivity extends AppCompatActivity {
                 course.addToWaitlist(user);
                 button.setText("Drop");
                 ((TextView)findViewById(R.id.courseInfo)).setText(course.viewCourseInfo());
+                courses.updateCourse(course);
+                users.updateUser(user);
             }
             else if(user.conflictCheck(course)==null) {
                 ((TextView) findViewById(R.id.addDropFeedback)).setText("Course added");
@@ -219,6 +307,8 @@ public class MainActivity extends AppCompatActivity {
                 course.increaseCurrent();
                 button.setText("Drop");
                 ((TextView)findViewById(R.id.courseInfo)).setText(course.viewCourseInfo());
+                courses.updateCourse(course);
+                users.updateUser(user);
             }
             else {
                 ((TextView) findViewById(R.id.addDropFeedback)).setText("Schedule conflict with " + user.conflictCheck(course).getName());
@@ -235,12 +325,9 @@ public class MainActivity extends AppCompatActivity {
         String search = searchBar.getText().toString();
         Course course = new Course();
 
-        if(courses.searchByID(search)!=null)
-            course = courses.searchByID(search);
-        else if(courses.searchByName(search) !=null)
+        course = courses.searchByID(search);
+        if(course == null)
             course = courses.searchByName(search);
-        else
-            course = null;
 
         if(course!=null) {
             setContentView(R.layout.course_info);
